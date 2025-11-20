@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Componentes</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="nav">
+  <a th:href="@{/home}">Home</a>
+  <a th:href="@{/logout}">Sair</a>
+</div>
+
+<div class="container">
+
+  <h1>Componentes</h1>
+
+  <form method="get" th:action="@{/componentes}">
+    <input type="text" name="buscar" placeholder="Buscar por nome">
+    <button type="submit">Buscar</button>
+    <a th:href="@{/componentes/novo}"><button type="button">Novo</button></a>
+  </form>
+
+  <table>
+    <tr>
+      <th>Nome</th>
+      <th>Tipo</th>
+      <th>Quantidade</th>
+      <th>Mínimo</th>
+      <th>Ações</th>
+    </tr>
+
+    <tr th:each="c : ${lista}">
+      <td th:text="${c.nome}"></td>
+      <td th:text="${c.tipo}"></td>
+      <td th:text="${c.quantidade}"></td>
+      <td th:text="${c.minimo}"></td>
+      <td>
+        <a th:href="@{/componentes/editar/{id}(id=${c.id})}"><button>Editar</button></a>
+        <a th:href="@{/componentes/excluir/{id}(id=${c.id})}"><button>Excluir</button></a>
+      </td>
+    </tr>
+
+  </table>
+
+</div>
+
+</body>
+</html>

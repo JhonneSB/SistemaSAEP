@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Painel</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="nav">
+  <span th:text="'Bem vindo, ' + ${usuario.nome}"></span>
+  <a th:href="@{/logout}">Sair</a>
+</div>
+
+<div class="container">
+  <h1>Painel Principal</h1>
+
+  <a th:href="@{/componentes}"><button>Componentes</button></a>
+  <a th:href="@{/estoque}"><button>Movimentar Estoque</button></a>
+</div>
+
+</body>
+</html>
