@@ -5,7 +5,6 @@ import com.estoque.siste_estoque.service.ComponenteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -37,6 +36,11 @@ public class ComponenteController {
         if (componente == null) {
             return "redirect:/componentes";
         }
+        System.out.println("=== EDITANDO COMPONENTE ===");
+        System.out.println("ID do componente carregado: " + componente.getId());
+        System.out.println("Nome do componente carregado: " + componente.getNome());
+        System.out.println("===========================");
+        
         model.addAttribute("comp", componente);
         return "componente-form";
     }
@@ -52,6 +56,17 @@ public class ComponenteController {
             @RequestParam(required = false) Integer quantidade,
             @RequestParam(required = false) Integer minimo) {
         
+        System.out.println("=== DADOS RECEBIDOS NO CONTROLLER ===");
+        System.out.println("ID: " + id);
+        System.out.println("Nome: " + nome);
+        System.out.println("Tipo: " + tipo);
+        System.out.println("Lote: " + lote);
+        System.out.println("Tensão: " + tensao);
+        System.out.println("Datasheet: " + datasheet);
+        System.out.println("Quantidade: " + quantidade);
+        System.out.println("Mínimo: " + minimo);
+        System.out.println("=====================================");
+        
         Componente componente = new Componente();
         componente.setId(id);
         componente.setNome(nome);
@@ -66,21 +81,9 @@ public class ComponenteController {
         return "redirect:/componentes";
     }
 
-    // CORREÇÃO: Exclusão com tratamento de erro
     @GetMapping("/excluir/{id}")
-    public String excluir(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        try {
-            boolean sucesso = componenteService.excluirComponente(id);
-            if (sucesso) {
-                redirectAttributes.addFlashAttribute("sucesso", "Componente excluído com sucesso!");
-            } else {
-                redirectAttributes.addFlashAttribute("erro", "Componente não encontrado!");
-            }
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("erro", 
-                "Erro ao excluir componente: " + e.getMessage() + 
-                ". O componente pode ter movimentações associadas.");
-        }
+    public String excluir(@PathVariable Long id) {
+        componenteService.excluir(id);
         return "redirect:/componentes";
     }
 
