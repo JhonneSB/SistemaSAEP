@@ -1,9 +1,13 @@
-/*/package com.estoque.siste_estoque.controller;
+package com.estoque.siste_estoque.controller;
 
 import com.estoque.siste_estoque.service.UsuarioService;
+
+import jakarta.servlet.http.HttpSession;
+
 import com.estoque.siste_estoque.model.Usuario;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ui.Model;
 
 @Controller
@@ -19,21 +23,27 @@ public class LoginController {
     public String login() {
         return "login";
     }
-
+    
+    
     @PostMapping("/login")
     public String logar(@RequestParam String login,
                         @RequestParam String senha,
-                        Model model) {
+                        Model model,
+                        HttpSession session,
+                        RedirectAttributes redirectAttributes) {
 
-        Usuario usuario = usuarioService.validarLogin(login, senha);
+        Usuario usuario = usuarioService.login(login, senha);
 
         if (usuario == null) {
             model.addAttribute("erro", "Usuário ou senha inválidos");
             return "login";
         }
 
-        model.addAttribute("usuario", usuario);
-        return "redirect:/principal";
+        // 1. Salva na sessão para manter o login
+        session.setAttribute("usuarioLogado", usuario);
+
+        
+        return "redirect:/home";
     }
+
 }
-*/

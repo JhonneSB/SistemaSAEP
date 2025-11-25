@@ -19,10 +19,13 @@ public class Componente {
     private Integer quantidade;
     private Integer minimo;
 
-    @OneToMany(mappedBy = "componente")
+    // CORREÇÃO: Adicionar cascade para exclusão em cascata
+    @OneToMany(mappedBy = "componente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Movimento> movimentos;
 
+    // GETTERS E SETTERS COMPLETOS
     public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
@@ -44,5 +47,7 @@ public class Componente {
 
     public Integer getMinimo() { return minimo; }
     public void setMinimo(Integer minimo) { this.minimo = minimo; }
-}
 
+    public List<Movimento> getMovimentos() { return movimentos; }
+    public void setMovimentos(List<Movimento> movimentos) { this.movimentos = movimentos; }
+}

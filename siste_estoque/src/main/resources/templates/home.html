@@ -7,7 +7,7 @@
 <body>
 
 <div class="nav">
-  <span th:text="'Bem vindo, ' + ${usuario.nome}"></span>
+  <span th:text="${usuario != null ? 'Bem vindo, ' + usuario.nome : ''}"></span>
   <a th:href="@{/logout}">Sair</a>
 </div>
 
